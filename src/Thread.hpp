@@ -15,10 +15,13 @@ namespace Poolium
     {
     public:
         Thread();
+        Thread(IThreadRunner&);
+        Thread(void (*)());
         ~Thread();
 
         IThread &Free();
         IThread &Run(IThreadRunner&);
+        IThread &Run(void (*)());
         IThread &Join();
 
     private:

@@ -1,0 +1,3 @@
+[submodule "Basium"]
+	path = Basium
+	url = https://github.com/Xobtah/Basium.git

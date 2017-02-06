@@ -3,6 +3,7 @@ NAME	= ThreadTest
 SRC	= main.cpp \
 	src/Thread.cpp \
 	src/Mutex.cpp \
+	src/ThreadPool.cpp \
 
 OBJ	= $(SRC:.cpp=.o)
 

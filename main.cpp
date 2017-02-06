@@ -6,7 +6,7 @@
 
 #include "src/Thread.hpp"
 #include "src/Mutex.hpp"
-#include "src/IThreadRunner.hpp"
+#include "src/ThreadPool.hpp"
 
 class   Test : public Poolium::IThreadRunner
 {
@@ -22,6 +22,8 @@ int main()
     Poolium::Thread thread;
     Test            test;
     Poolium::Mutex  mutex;
+    Poolium::ThreadPool tp;
+    unsigned int        id;
 
     std::cout << "Mutex lock status: " << mutex.TryLock() << std::endl;
     std::cout << "Mutex lock status: " << mutex.TryLock() << std::endl;
@@ -29,6 +31,9 @@ int main()
     std::cout << "Mutex lock status: " << mutex.TryLock() << std::endl;
     mutex.Unlock().Lock();
     std::cout << "Mutex lock status: " << mutex.TryLock() << std::endl;
-    thread.Free().Run(test).Join();
+    thread.Free().Run(test).Join().Free();
+    id = tp.Add(test);
+    tp.Get(id).Join();
+    tp.Remove(id);
     return (0);
 }

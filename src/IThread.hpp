@@ -16,6 +16,7 @@ namespace Poolium
 
         virtual IThread &Free() = 0;
         virtual IThread &Run(IThreadRunner&) = 0;
+        virtual IThread &Run(void (*)()) = 0;
         virtual IThread &Join() = 0;
     };
 }

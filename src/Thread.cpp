@@ -11,6 +11,10 @@ namespace Poolium
      */
     Thread::Thread() : _thread(NULL) {}
 
+    Thread::Thread(IThreadRunner &tr) { this->Run(tr); }
+
+    Thread::Thread(void (*funcPtr)()) { this->Run(funcPtr); }
+
     Thread::~Thread() { this->Free(); }
 
     /*
@@ -24,6 +28,7 @@ namespace Poolium
             if (_thread->joinable())
                 _thread->detach();
             delete _thread;
+            _thread = NULL;
         }
         return (*this);
     }
@@ -31,6 +36,12 @@ namespace Poolium
     IThread &Thread::Run(IThreadRunner &tr)
     {
         _thread = new std::thread(&IThreadRunner::ThreadRunner, &tr);
+        return (*this);
+    }
+
+    IThread &Thread::Run(void (*funcPtr)())
+    {
+        _thread = new std::thread(funcPtr);
         return (*this);
     }
 
