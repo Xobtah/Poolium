@@ -4,26 +4,16 @@
 
 #include <iostream>
 
-#include "src/Thread.hpp"
-#include "src/Mutex.hpp"
-#include "src/ThreadPool.hpp"
+#include "../src/Thread.hpp"
+#include "../src/Mutex.hpp"
+#include "../src/ThreadPool.hpp"
 
-class   Test : public Poolium::IThreadRunner
-{
-public:
-    Test() {}
-    ~Test() {}
-
-    void    ThreadRunner() { std::cout << "Hello World!" << std::endl; }
-};
+void testFunc(int lol, char ptdr) { std::cout << lol << ptdr << std::endl; }
 
 int main()
 {
     Poolium::Thread thread;
-    Test            test;
     Poolium::Mutex  mutex;
-    Poolium::ThreadPool tp;
-    unsigned int        id;
 
     std::cout << "Mutex lock status: " << mutex.TryLock() << std::endl;
     std::cout << "Mutex lock status: " << mutex.TryLock() << std::endl;
@@ -31,9 +21,11 @@ int main()
     std::cout << "Mutex lock status: " << mutex.TryLock() << std::endl;
     mutex.Unlock().Lock();
     std::cout << "Mutex lock status: " << mutex.TryLock() << std::endl;
-    thread.Free().Run(test).Join().Free();
-    id = tp.Add(test);
-    tp.Get(id).Join();
-    tp.Remove(id);
+
+    // Using pointers to function does not work yet
+    //thread.Set(testFunc).Run(42, 'c').Join().Free();
+
+    thread.Set([]() { std::cout << "It's working!!" << std::endl; }).Run().Join();
+    thread.Set([](int first, char second) { std::cout << first << second << std::endl; }).Run(42, 'c').Join().Free();
     return (0);
 }

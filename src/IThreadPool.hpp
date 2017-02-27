@@ -5,7 +5,6 @@
 #ifndef POOLIUM_ITHREADPOOL_HPP
 #define POOLIUM_ITHREADPOOL_HPP
 
-#include "IThreadRunner.hpp"
 #include "Thread.hpp"
 
 namespace Poolium
@@ -15,7 +14,6 @@ namespace Poolium
     public:
         virtual ~IThreadPool() {}
 
-        virtual unsigned int    Add(IThreadRunner&) = 0;
         virtual unsigned int    Add(void (*)()) = 0;
         virtual Thread          &Get(unsigned int) = 0;
         virtual IThreadPool     &Remove(unsigned int) = 0;
