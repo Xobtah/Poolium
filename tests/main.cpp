@@ -8,8 +8,6 @@
 #include "../src/Mutex.hpp"
 #include "../src/ThreadPool.hpp"
 
-void testFunc(int lol, char ptdr) { std::cout << lol << ptdr << std::endl; }
-
 int main()
 {
     Poolium::Thread thread;
@@ -22,10 +20,11 @@ int main()
     mutex.Unlock().Lock();
     std::cout << "Mutex lock status: " << mutex.TryLock() << std::endl;
 
-    // Using pointers to function does not work yet
-    //thread.Set(testFunc).Run(42, 'c').Join().Free();
-
     thread.Set([]() { std::cout << "It's working!!" << std::endl; }).Run().Join();
     thread.Set([](int first, char second) { std::cout << first << second << std::endl; }).Run(42, 'c').Join().Free();
+
+    Poolium::Thread ctorThread(thread);
+
+    ctorThread.Run(42, 'c');
     return (0);
 }

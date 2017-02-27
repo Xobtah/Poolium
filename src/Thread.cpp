@@ -11,6 +11,17 @@ namespace Poolium
      */
     Thread::Thread() : _thread(NULL) {}
 
+    Thread::Thread(const Thread &t) : _thread(NULL), _func(t._func) {}
+
+    Thread  &Thread::operator=(const Thread &t)
+    {
+        if (this == &t)
+            return (*this);
+        _thread = NULL;
+        _func = t._func;
+        return (*this);
+    }
+
     Thread::~Thread() { this->Free(); }
 
     /*

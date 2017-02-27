@@ -14,6 +14,10 @@ namespace Poolium
     {
     public:
         Thread();
+        template<typename LambdaType>
+        Thread(LambdaType lambda) { this->Set(make_function(lambda)); }
+        Thread(const Thread&);
+        Thread  &operator=(const Thread&);
         ~Thread();
 
         Thread  &Free();
