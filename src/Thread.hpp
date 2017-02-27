@@ -15,7 +15,7 @@ namespace Poolium
     public:
         Thread();
         template<typename LambdaType>
-        Thread(LambdaType lambda) { this->Set(make_function(lambda)); }
+        Thread(LambdaType lambda) { this->Set(make_function(lambda)).Run(); }
         Thread(const Thread&);
         Thread  &operator=(const Thread&);
         ~Thread();

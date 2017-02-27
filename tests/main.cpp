@@ -24,7 +24,8 @@ int main()
     thread.Set([](int first, char second) { std::cout << first << second << std::endl; }).Run(42, 'c').Join().Free();
 
     Poolium::Thread ctorThread(thread);
+    Poolium::Thread ctorThreadRun([]() { std::cout << "It's working!!" << std::endl; });
 
-    ctorThread.Run(42, 'c');
+    ctorThread.Run(42, 'c').Join();
     return (0);
 }
