@@ -31,7 +31,6 @@ namespace Poolium
         ThreadPool();
         ~ThreadPool();
 
-        unsigned int    Add(IThreadRunner&);
         unsigned int    Add(void (*)());
         Thread          &Get(unsigned int);
         IThreadPool     &Remove(unsigned int);

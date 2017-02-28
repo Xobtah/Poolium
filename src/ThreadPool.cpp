@@ -21,8 +21,6 @@ namespace Poolium
      *  Public member functions
      */
 
-    unsigned int    ThreadPool::Add(IThreadRunner &tr) { return (_db.Insert(new Thread(tr))); }
-
     unsigned int    ThreadPool::Add(void (*funcPtr)()) { return (_db.Insert(new Thread(funcPtr))); }
 
     Thread          &ThreadPool::Get(unsigned int id)
